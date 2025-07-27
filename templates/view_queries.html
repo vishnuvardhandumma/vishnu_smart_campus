@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query Logs</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; padding: 30px; }
+        h2 { color: #003366; }
+        table { border-collapse: collapse; width: 100%; background: white; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #003366; color: white; }
+        a { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #003366; color: white; text-decoration: none; border-radius: 5px; }
+        a:hover { background: #005599; }
+        .form-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+        .form-container label { display: block; margin-bottom: 10px; font-weight: bold; }
+        .form-container textarea, .form-container input[type="text"] { width: 100%; height: 40px; margin-bottom: 10px; }
+        .form-container button { padding: 10px 20px; background: #003366; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Query Logs</h2>
+    
+    <!-- Add New Query Form -->
+    <div class="form-container">
+        <h3>Add a New Query</h3>
+        <form method="POST">
+            <div>
+                <label for="new_query">New Query:</label>
+                <input type="text" id="new_query" name="new_query" required>
+            </div>
+            <div>
+                <label for="new_response">Response:</label>
+                <textarea id="new_response" name="new_response" required></textarea>
+            </div>
+            <div>
+                <button type="submit">Add Query</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Existing Query Logs Table -->
+    <table>
+        <tr>
+            <th>Query</th>
+            <th>Response</th>
+            <th>Timestamp</th>
+            <th>Actions</th>
+        </tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log[1] }}</td>  <!-- For the query text -->
+            <td>{{ log[2] }}</td>  <!-- For the response -->
+            <td>{{ log[3] }}</td>  <!-- For the timestamp -->
+            <td>
+                <a href="/admin/edit_query/{{ log[0] }}">Edit</a>  <!-- Edit link with the ID -->
+                <form action="/admin/delete_query/{{ log[0] }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this query?');">
+                   <div id="delete" > <button type="submit" style="background: #cc0000; color: white; border: none; padding: 5px 10px; border-radius: 4px;">Delete</button></div>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/admin/dashboard">Back to Dashboard</a>
+</body>
+</html>

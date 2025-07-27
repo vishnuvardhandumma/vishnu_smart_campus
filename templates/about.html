@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - MGIT Campus Assistant</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Ccircle cx="50" cy="50" r="30" fill="%23fff" fill-opacity="0.1" /%3E%3Ccircle cx="150" cy="150" r="40" fill="%23fff" fill-opacity="0.1" /%3E%3C/svg%3E');
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1100px; /* Increased width from 900px to 1100px */
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideIn 0.8s ease-in-out;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #ff6f61;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ff6f61, #ff9a9e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 111, 97, 0.3);
+            text-align: center; /* Centered the heading */
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0 30px;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding: 15px 15px 15px 50px;
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        ul li::before {
+            content: '\f00c'; /* Font Awesome checkmark */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 18px;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        ul li:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            position: absolute; /* Positioned at top left */
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #ff6f61, #ff9a9e);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+        }
+
+        .back-link i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 111, 97, 0.5);
+            background: linear-gradient(45deg, #ff4d4d, #ff7676);
+        }
+
+        .back-link:hover i {
+            transform: translateX(-5px);
+        }
+
+        .back-link:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 10px rgba(255, 111, 97, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 15px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            p, ul li {
+                font-size: 15px;
+            }
+
+            .back-link {
+                top: 15px;
+                left: 15px;
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%; /* Full width on small screens */
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .back-link {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+
+            ul li {
+                padding: 12px 12px 12px 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('mgit_page') }}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back 
+    </a>
+    <div class="container">
+        
+        <h1>About MGIT Campus Assistant</h1>
+        <p>
+            MGIT Campus Assistant is your personal voice assistant designed to help students, faculty, and staff at
+            Mahatma Gandhi Institute of Technology (MGIT) get the information they need quickly and efficiently.
+        </p>
+        <p>
+            The assistant can help with:
+        </p>
+        <ul>
+            <li>Providing campus information</li>
+            <li>Assisting with navigation</li>
+            <li>Giving important contact details</li>
+            <li>Handling various student queries</li>
+        </ul>
+        <p>
+            This project aims to improve the user experience on campus by making essential information accessible
+            through voice commands, creating a seamless and vibrant interaction with campus resources.
+        </p>
+    </div>
+</body>
+</html>

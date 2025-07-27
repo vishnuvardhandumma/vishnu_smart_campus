@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - MGIT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #003366, #004080);
+      color: white;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: slideDown 0.7s ease-out;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      animation: fadeIn 1s;
+    }
+
+    h2 {
+      color: #003366;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #003366;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      height: 100%;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(165, 10, 10, 0.59);
+    }
+
+    .card a i {
+      font-size: 35px;
+      color: #004080;
+      transition: color 0.3s;
+    }
+
+    .card:hover a i {
+      color: #007acc;
+    }
+
+    .card a:hover {
+      color: #007acc;
+    }
+
+    .logout {
+      color: crimson;
+    }
+
+    .logout:hover {
+      color: #ff3333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>MGIT Admin Dashboard</h1>
+</header>
+
+<div class="container">
+  <h2>Welcome, Admin of MGIT</h2>
+  <div class="actions">
+
+    <div class="card">
+      <a href="/admin/upload-timetable">
+        <i class="fas fa-upload"></i>
+        Upload Timetable
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="/admin/view-timetables">
+        <i class="fas fa-table"></i>
+        View Timetables
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="/admin/update-college">
+        <i class="fas fa-university"></i>
+        Update College Info
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="/admin/add-admin">
+        <i class="fas fa-user-plus"></i>
+        Add New Admin
+      </a>
+    </div>
+    <div class="card">
+      <a href="/admin/manage-users">
+        <i class="fas fa-users-cog"></i>
+        Manage  Users
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="/admin/view-queries">
+        <i class="fas fa-comments"></i>
+        View Query Logs
+      </a>
+    </div>
+
+    <div class="card">
+      <a class="logout" href="/admin/logout">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+      </a>
+    </div>
+    <div class="card">
+      <a href="/admin/notifications">Notifications ({{ pending_notifications }})</a>
+
+    </div>
+    
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGIT Campus Assistant</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    body {
+        background: url("{{ url_for('static', filename='MGit12.jpeg') }}") no-repeat center center/cover;
+        background-attachment: fixed;
+        color: white;
+        position: relative;
+        transition: 0.4s ease;
+    }
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(4, 4, 4, 0.33);
+        z-index: -1;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
+    }
+    .logo {
+        font-size: 24px;
+        font-weight: 600;
+        color: white;
+    }
+    .menu {
+        display: flex;
+        list-style: none;
+    }
+    .menu li {
+        margin: 0 15px;
+    }
+    .menu li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+    .menu li a:hover {
+        color: #00c6ff;
+    }
+    .logout-btn {
+        background: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .logout-btn:hover {
+        background: darkred;
+    }
+    .announcement {
+        font-size: 18px;
+        font-weight: bold;
+        background: #0072ff;
+        color: black;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        margin-top: 90px;
+        border-radius: 5px;
+    }
+    .hero {
+        text-align: center;
+        margin-top: 130px;
+        padding: 60px 20px;
+    }
+    .hero h1 {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    .hero p {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+    .mic-button {
+        padding: 18px 35px;
+        font-size: 22px;
+        background: #0072ff;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        transition: 0.4s;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .mic-button i {
+        font-size: 26px;
+    }
+    .mic-button:hover {
+        background: #00c6ff;
+        transform: scale(1.05);
+    }
+    #response {
+        margin-top: 25px;
+        font-size: 22px;
+        color: black;
+        background: rgba(255,255,255,0.85);
+        padding: 18px 30px;
+        border-radius: 12px;
+        display: inline-block;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    .show-response {
+        opacity: 1 !important;
+    }
+    .footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        color: white;
+    }
+    .theme-toggle {
+        position: absolute;
+        top: 18px;
+        right: 80px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #f9f9f9;
+        transition: 0.3s;
+    }
+    .theme-toggle:hover {
+        color: #00c6ff;
+    }
+    /* Dark Mode */
+    body.dark-mode {
+        background: #121212;
+        color: #ddd;
+    }
+    body.dark-mode::before {
+        background: rgba(0, 0, 0, 0.7);
+    }
+    body.dark-mode .announcement {
+        background: #444;
+        color: #f5f5f5;
+    }
+    body.dark-mode #response {
+        background: rgba(255, 255, 255, 0.12);
+        color: #f5f5f5;
+    }
+
+    .features {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .feature-btn {
+        padding: 16px 30px;
+        font-size: 18px;
+        background: #0072ff;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.4s;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    
+    .feature-btn i {
+        font-size: 22px;
+    }
+    
+    .feature-btn:hover {
+        background: #00c6ff;
+        transform: translateY(-2px);
+    }
+    
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">MGIT Campus Assistant</div>
+    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('features') }}">Features</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+    </ul>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+</nav>
+
+<marquee class="announcement" behavior="scroll" direction="left" scrollamount="15" onclick="redirectToMGIT()">
+    Click here for new updates and announcements!
+</marquee>
+
+<div class="hero">
+    <h1>Welcome to MGIT Campus Assistant</h1>
+    <p>Your personal voice assistant for MGIT.</p>
+    <button class="mic-button" onclick="startListening()">
+        <i class="fa fa-microphone"></i> Start Listening
+    </button>
+    <p id="response"></p>
+
+    <div class="features">
+        <button class="feature-btn" onclick="window.location.href='/view_timetable'">
+            <i class="fa fa-calendar-alt"></i> View Timetable
+        </button>
+        <button class="feature-btn" onclick="window.location.href='/view_announcements'">
+            <i class="fa fa-bullhorn"></i> Announcements
+        </button>
+        <button class="feature-btn" onclick="window.location.href='/academic_calendar'">
+            <i class="fa fa-book-open"></i> Academic Calendar
+        </button>
+        </button>
+        <button class="feature-btn" onclick="window.location.href='/exam_schedules'">
+            <i class="fa fa-file-alt"></i> Exam Schedules
+        </button>
+        <button class="feature-btn" onclick="window.location.href='/college_events'">
+            <i class="fa fa-star"></i> College Events
+        </button>
+    </div>
+    
+
+
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 MGIT Campus Assistant. All Rights Reserved.</p>
+</div>
+
+<script>
+function startListening() {
+    const micButton = document.querySelector(".mic-button");
+    const responseText = document.getElementById("response");
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        alert("Your browser doesn't support Speech Recognition.");
+        return;
+    }
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.start();
+    micButton.classList.add("listening");
+    responseText.innerText = "Listening...";
+    responseText.classList.add("show-response");
+    recognition.onresult = function(event) {
+        const command = event.results[0][0].transcript;
+        responseText.innerText = "You said: " + command;
+        fetch(`/voice_command/${encodeURIComponent(command)}`)
+            .then(response => response.json())
+            .then(data => {
+                responseText.innerText = data.response;
+            })
+            .catch(error => {
+                responseText.innerText = "Error processing request.";
+            });
+        micButton.classList.remove("listening");
+    };
+    recognition.onspeechend = function() {
+        recognition.stop();
+        micButton.classList.remove("listening");
+    };
+    recognition.onerror = function(event) {
+        responseText.innerText = "Error: " + event.error;
+        micButton.classList.remove("listening");
+    };
+}
+
+function logout() {
+    window.location.href = "/logout";
+}
+
+function redirectToMGIT() {
+    window.location.href = "https://mgit.ac.in";
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const icon = document.querySelector(".theme-toggle");
+    icon.classList.toggle('fa-sun');
+    icon.classList.toggle('fa-moon');
+}
+</script>
+
+</body>
+</html>

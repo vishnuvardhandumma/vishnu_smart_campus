@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Timetable</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 400px;
+            text-align: center;
+            
+
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .message {
+            background: #e6ffed;
+            border: 1px solid #28a745;
+            color: #155724;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+        input[type="file"],
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📄 Upload Timetable (PDF)</h2>
+            {% if message %}
+                <div class="message">{{ message }}</div>
+            {% endif %}
+
+        <form action="/admin/upload-timetable" method="POST" enctype="multipart/form-data">
+            <label>Select PDF File:</label>
+            <input type="file" name="file" accept="application/pdf" required>
+
+            <label>Branch:</label>
+            <input type="text" name="branch" placeholder="Eg: CSE, ECE" required>
+
+            <label>Section:</label>
+            <input type="number" name="section" min="1" max="4" required>
+
+            <label>Year:</label>
+            <select name="year" required>
+                <option value="1styear">1st Year</option>
+                <option value="2ndyear">2nd Year</option>
+                <option value="3rdyear">3rd Year</option>
+                <option value="4thyear">4th Year</option>
+            </select>
+
+            <button type="submit">Upload 📤</button>
+        </form>
+
+        <a href="/admin/dashboard">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

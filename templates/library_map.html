@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MGIT Campus Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f0f0;
+        }
+        #map {
+            position: relative;
+            height: 90vh;
+            width: 100%;
+            border: 5px solid #444;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);          
+        }
+        h2 {
+            text-align: center;
+            color:rgb(14, 14, 15);
+            padding: 10px;
+        }
+        .legend {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        }
+        .legend h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .legend p {
+            margin: 4px 0;
+        }
+        .legend span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+        .button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 9999; /* Make sure it's above the map! */
+            padding: 8px 14px;
+            background: rgb(246, 6, 6);
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            font-weight: bold;
+                    
+        }
+        
+        .tooltip-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+  <div id="map"><div id="map">
+    <a href="/mgit" class="button" style="color:black";>← Back</a>
+  </div>
+
+
+    <div class="legend">
+        <h4>Legend</h4>
+        <p><span style="background:gray"></span> 📍 Location</p>
+        <p><span style="background:#4caf50"></span> 📚 Library</p>
+        <p><span style="background:#ff9800"></span> 🍽️ Canteen</p>
+        <p><span style="background:#3f51b5"></span> 🎭 Auditorium</p>
+    </div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map', {
+        crs: L.CRS.Simple,
+        minZoom: -2,
+        maxZoom: 2
+    });
+
+    var imageUrl = "{{ url_for('static', filename='images/mgit_map.png') }}";
+    var imageBounds = [[0, 0], [1000, 1000]];
+    L.imageOverlay(imageUrl, imageBounds).addTo(map);
+    map.fitBounds(imageBounds);
+
+    function customPopup(content, color) {
+        return `<div style="padding:5px;color:white;background:${color};border-radius:5px;text-align:center;">${content}</div>`;
+    }
+
+    function imageTooltip(imgSrc) {
+        return `<img src="${imgSrc}" class="tooltip-img" />`;
+    }
+
+    // Library Marker
+    L.marker([650, 500]).addTo(map)
+        .bindPopup(customPopup("📚 Library", "#4caf50"))
+        .bindTooltip(imageTooltip("{{ url_for('static', filename='images/library.jpeg') }}"), {
+            permanent: false,
+            direction: 'top',
+            opacity: 0.9,
+            className: 'custom-tooltip'
+        });
+
+    /*Canteen Marker
+    L.marker([400, 300]).addTo(map)
+        .bindPopup(customPopup("🍽️ Canteen", "#ff9800"))
+        .bindTooltip(imageTooltip("{{ url_for('static', filename='images/canteen.jpeg') }}"), {
+            permanent: false,
+            direction: 'top',
+            opacity: 0.9
+        });
+
+    // Auditorium Marker
+    L.marker([800, 200]).addTo(map)
+        .bindPopup(customPopup("🎭 Auditorium", "#3f51b5"))
+        .bindTooltip(imageTooltip("{{ url_for('static', filename='images/auditorium.jpeg') }}"), {
+            permanent: false,
+            direction: 'top',
+            opacity: 0.9
+        });
+        
+
+    // 📍 General Location Marker
+    L.marker([900, 900]).addTo(map)
+        .bindPopup(customPopup("📍 Main Gate", "gray"));*/
+</script>
+
+</body>
+</html>

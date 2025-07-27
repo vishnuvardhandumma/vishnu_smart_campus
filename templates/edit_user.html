@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit User</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; padding: 20px; background: #f0f4f8; }
+    .container { max-width: 500px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; }
+    h2 { text-align: center; color: #003366; margin-bottom: 20px; }
+    form { display: flex; flex-direction: column; gap: 10px; }
+    input, button { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Edit Admin User</h2>
+  <form method="POST" action="/admin/update-user/{{ user[0] }}">
+    <input type="text" name="username" value="{{ user[1] }}" required>
+    <input type="email" name="email" value="{{ user[2] }}" required>
+    <input type="password" name="password" value="{{ user[3] }}" required>
+    <button type="submit">Update User</button>
+  </form>
+</div>
+
+</body>
+</html>

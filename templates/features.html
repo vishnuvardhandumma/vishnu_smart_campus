@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - MGIT Campus Assistant</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #84fab0, #8fd3f4);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px; /* Increased padding to accommodate button outside container */
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 50px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.6s ease-in-out;
+            position: relative;
+            z-index: 1; /* Ensure container is above background */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1e7bcb;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 20px;
+            color: #222;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 400;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 20px;
+        }
+
+        .feature-list li {
+            background: linear-gradient(90deg, #f0faf6, #dbeeff);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: #222;
+            font-size: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+        }
+
+        .feature-list li:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-list li strong {
+            color: #e94e77;
+            font-weight: 700;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #1e7bcb, #63a4ff);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(30, 123, 203, 0.4);
+            z-index: 2; /* Ensure button is above container */
+        }
+
+        .back-link i {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 123, 203, 0.6);
+            background: linear-gradient(45deg, #1565c0, #4d94ff);
+        }
+
+        .back-link:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 10px rgba(30, 123, 203, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 35px;
+                margin: 15px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+
+            .feature-list li {
+                font-size: 16px;
+            }
+
+            .back-link {
+                top: 15px;
+                left: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .back-link {
+                padding: 10px 20px;
+                font-size: 14px;
+                top: 10px;
+                left: 10px;
+            }
+
+            .feature-list li {
+                padding: 16px;
+                font-size: 15px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('mgit_page') }}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+    <div class="container">
+        <h1>Features of MGIT Campus Assistant</h1>
+        <p>Discover the key features that make MGIT Campus Assistant your ideal companion.</p>
+
+        <ul class="feature-list">
+            <li><strong>Voice Commands:</strong> Ask questions and get answers instantly.</li>
+            <li><strong>Navigation Assistance:</strong> Get directions to various campus locations.</li>
+            <li><strong>Contact Information:</strong> Access important contact numbers and email addresses.</li>
+            <li><strong>Event Updates:</strong> Stay informed about upcoming events and activities.</li>
+            <li><strong>Academic Information:</strong> Get details about courses, schedules, and more.</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify OTP</title>
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='login.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .verify-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .resend-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .flash-messages {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <script>
+        function resendOTP() {
+            let resendButton = document.getElementById("resend-btn");
+            resendButton.disabled = true;
+            resendButton.innerText = "Resending...";
+
+            fetch('/resend-otp', { method: 'POST' })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    resendButton.disabled = false;
+                    resendButton.innerText = "Resend OTP";
+                })
+                .catch(error => {
+                    alert("Error resending OTP: " + error);
+                    resendButton.disabled = false;
+                    resendButton.innerText = "Resend OTP";
+                });
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Verify OTP</h2>
+
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="/verify-otp" method="post">
+            <label>Enter OTP:</label>
+            <input type="text" name="otp" pattern="\d{6}" maxlength="6" required>
+            <button type="submit" class="verify-btn">Verify OTP</button>
+        </form>
+        <button id="resend-btn" onclick="resendOTP()" class="resend-btn">Resend OTP</button>
+    </div>
+
+</body>
+</html>

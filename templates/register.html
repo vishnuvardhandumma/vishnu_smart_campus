@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 12px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .password-requirements {
+            font-size: 12px;
+            color: #666;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: left;
+            display: none;
+            margin-bottom: 10px;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #777;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function togglePassword() {
+            let passwordInput = document.getElementById("password");
+            let eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.textContent = "hide"; // Open eye icon
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.textContent = "show"; // Closed eye icon
+            }
+        }
+
+        function validateForm(event) {
+            let collegeSelect = document.getElementById("college");
+            let errorText = document.getElementById("college-error");
+            let passwordInput = document.getElementById("password");
+            let passwordError = document.getElementById("password-error");
+
+            // College selection validation
+            if (collegeSelect.value === "") {
+                errorText.style.display = "block";
+                event.preventDefault();
+            } else {
+                errorText.style.display = "none";
+            }
+
+            // Password validation
+            let password = passwordInput.value;
+            let passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!passwordPattern.test(password)) {
+                passwordError.style.display = "block";
+                event.preventDefault();
+            } else {
+                passwordError.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Account</h2>
+        <form method="POST" onsubmit="validateForm(event)">
+            <label>Username:</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+            
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Enter email" required>
+            
+            <label>Password:</label>
+            <div class="password-container">
+                <input type="password" name="password" id="password" placeholder="Enter password" required>
+                <span class="eye-icon" id="eye-icon" onclick="togglePassword()">👁️</span>
+            </div>
+            <p class="password-requirements">
+                Password must be at least 8 characters long and include:<br>
+                ✅ One uppercase letter<br>
+                ✅ One lowercase letter<br>
+                ✅ One number<br>
+                ✅ One special character (@, $, !, %, *, ?, &)
+            </p>
+            <p id="password-error" class="error">Password does not meet requirements.</p>
+
+            <label>Select College:</label>
+            <select name="college" id="college" required>
+                <option value="" disabled selected>Select College</option>
+                <option value="MGIT">MGIT</option>
+            </select>
+            
+            <p id="college-error" class="error">Please select a college name.</p>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
+    </div>
+</body>
+</html>

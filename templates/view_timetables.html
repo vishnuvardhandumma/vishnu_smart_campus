@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Timetables</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="my-4">Uploaded Timetables</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Branch</th>
+                    <th>Section</th>
+                    <th>Year</th>
+                    <th>Upload Time</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>{{ file[0] }}</td>
+                    <td>{{ file[1] }}</td>
+                    <td>{{ file[2] }}</td>
+                    <td>{{ file[3] }}</td>
+                    <td><a href="{{ url_for('static', filename='pdfs/' + file[4]) }}" target="_blank">View</a></td>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

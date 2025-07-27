@@ -1,0 +1,20 @@
+<!-- templates/my_queries.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Queries</title>
+</head>
+<body>
+    <h2>My Submitted Queries</h2>
+    {% for query in queries %}
+        <div style="border:1px solid #aaa; padding:10px; margin:10px 0;">
+            <p><strong>Query:</strong> {{ query[0] }}</p>
+            <p><strong>Response:</strong> {{ query[1] or 'Pending...' }}</p>
+            <p><strong>Status:</strong> {{ query[2] }}</p>
+            <p><strong>Time:</strong> {{ query[3] }}</p>
+        </div>
+    {% else %}
+        <p>No queries submitted yet.</p>
+    {% endfor %}
+</body>
+</html>

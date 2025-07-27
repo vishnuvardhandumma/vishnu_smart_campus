@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - MGIT Campus Assistant</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 90%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .contact-list li {
+            background: #fff;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-list li strong {
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #e74c3c;
+            text-decoration: underline;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #3498db;
+            color: #fff;
+            border-radius: 25px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #e74c3c;
+            transform: scale(1.05);
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .container {
+                padding: 20px;
+            }
+            .contact-list li {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Information</h1>
+        <ul class="contact-list">
+            <li><strong>Administrative Office:</strong> +91 12345 67890</li>
+            <li><strong>Admissions Office:</strong> +91 98765 43210</li>
+            <li><strong>Technical Support:</strong> +91 11223 44556</li>
+            <li><strong>Email:</strong> <a href="mailto:support@mgit.ac.in">support@mgit.ac.in</a></li>
+        </ul>
+        <p><a href="{{ url_for('mgit_page') }}" class="back-btn">Go Back to Home</a></p>
+    </div>
+</body>
+</html>

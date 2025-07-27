@@ -1,0 +1,26 @@
+<!-- templates/admin_notifications.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Notifications</title>
+</head>
+<body>
+    <h2>Pending Notifications</h2>
+    {% for note in notifications %}
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+            <p><strong>From:</strong> {{ note[1] }}</p>
+            <p><strong>Query:</strong> {{ note[2] }}</p>
+            <p><strong>Status:</strong> {{ note[4] }}</p>
+            <form method="get" action="{{ url_for('view_notifications') }}">
+              <select name="status" onchange="this.form.submit()">
+                  <option value="Pending" {% if current_status == 'Pending' %}selected{% endif %}>Pending</option>
+                  <option value="Resolved" {% if current_status == 'Resolved' %}selected{% endif %}>Resolved</option>
+              </select>
+          </form>
+          
+        </div>
+    {% else %}
+        <p>No pending notifications.</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Admin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f5f7;
+      padding: 0px;
+      margin: 0;
+      text-align: center;
+    }
+
+    header {
+      margin:-15px;
+      background-color: #003366;
+      color: white;
+      padding: 27px;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      color: #222;
+      margin: 0px 0 20px;
+    }
+
+    .form-box {
+      display: inline-block;
+      padding: 30px;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      text-align: left;
+      max-width: 500px;
+    }
+
+    .form-box label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0px;
+      color: #333;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .form-box input:focus {
+      border-color: #0b2c53;
+      box-shadow: 0 0 5px rgba(11, 44, 83, 0.4);
+      outline: none;
+    }
+
+    .form-box button {
+      padding: 12px 25px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background 0.3s;
+    }
+
+    .form-box button:hover {
+      background: #004080;
+    }
+
+    a.back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 28px;
+      background: maroon;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    a.back-btn:hover {
+      background: #800000;
+    }
+
+    .alert {
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      animation: fadeIn 0.5s;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Realtime button feedback */
+    .form-box button.loading {
+      background: #999;
+      cursor: wait;
+    }
+
+    .form-box button.loading::after {
+      content: '...';
+      animation: dots 1s steps(5, end) infinite;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    .cont{
+      color:red;
+      padding:30px;
+    }
+
+    @keyframes dots {
+      0%, 20% {
+        content: '';
+      }
+      40% {
+        content: '.';
+      }
+      60% {
+        content: '..';
+      }
+      80%, 100% {
+        content: '...';
+      }
+    }
+    a {
+      padding: 5px 10px;
+      text-decoration: none;
+      color: white;
+      border-radius: 4px;
+    }
+    .delete {
+      background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 style="      padding-left:px;
+">MGIT</h1>
+  </header>
+  <div class="cont">
+
+  <h2>Add New Admin</h2>
+
+  <div class="form-box">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="POST" id="addAdminForm">
+      <label>Admin Username</label>
+      <input type="text" name="username" required>
+
+      <label>Admin Email</label>
+      <input type="email" name="email" required>
+
+      <label>Password</label>
+      <input type="password" name="password" required>
+
+      <label></label>
+      <input type="hidden" name="college" value="MGIT">
+
+      <button type="submit" id="addBtn">Add Admin</button>
+
+      <a href="/admin/view-admins">
+        <button type="button">View Admins</button>
+      </a>
+    </form>
+  </div>
+  </div>
+
+  <br>
+  <a href="/admin/dashboard" class="back-btn">&lt; Back to Dashboard</a>
+
+  <script>
+    window.onload = function() {
+      var successMessage = document.querySelector('.alert-success');
+      if (successMessage) {
+        alert(successMessage.textContent);
+      }
+    }
+
+    const form = document.getElementById('addAdminForm');
+    const addBtn = document.getElementById('addBtn');
+
+    form.addEventListener('submit', function() {
+      addBtn.classList.add('loading');
+    });
+  </script>
+
+</body>
+</html>

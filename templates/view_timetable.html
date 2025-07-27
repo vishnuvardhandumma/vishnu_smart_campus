@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Timetable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eef2f5;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 30px;
+            display: inline-block;
+            text-align: left;
+            padding: 20px 30px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        form div {
+            margin: 15px 0;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 250px;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .pdf-link {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        .not-found {
+            color: red;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        iframe {
+            margin-top: 30px;
+            border: none;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #28a745;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🕒 View Class Timetable</h2>
+
+    <form method="POST">
+        <div>
+            <label><i class="fa fa-building"></i> Branch:</label>
+            <input type="text" name="branch" placeholder="e.g. cse" required>
+        </div>
+        
+        <div>
+            <label><i class="fa fa-layer-group"></i> Section:</label>
+            <input type="number" name="section" min="1" max="4" placeholder="e.g. 1" required>
+        </div>
+        
+        <div>
+            <label><i class="fa fa-calendar"></i> Year:</label>
+            <select name="year" required>
+                <option value="" disabled selected>Select Year</option>
+                <option value="1styear">1st Year</option>
+                <option value="2ndyear">2nd Year</option>
+                <option value="3rdyear">3rd Year</option>
+                <option value="4thyear">4th Year</option>
+            </select>
+        </div>
+
+        <button type="submit"><i class="fa fa-search"></i> Show Timetable</button>
+    </form>
+
+    {% if found %}
+        <iframe src="{{ url_for('static', filename=file_path) }}" width="80%" height="600px"></iframe>
+
+        <div class="pdf-link">
+            ✅ Timetable Found: 
+            <a href="{{ url_for('static', filename=file_path) }}" target="_blank">View PDF in New Tab</a>
+        </div>
+
+        <a class="download-btn" href="{{ url_for('static', filename=file_path) }}" download>📥 Download Timetable</a>
+    
+    {% elif not_found %}
+        <div class="not-found">❌ No timetable found for the selected class.</div>
+    {% endif %}
+
+</body>
+</html>

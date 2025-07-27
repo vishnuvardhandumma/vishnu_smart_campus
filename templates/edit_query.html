@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Query Response</title>
+    <style>
+        body { font-family: 'Segoe UI'; padding: 30px; background: #eef2f3; }
+        .box { background: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-bottom: 10px; font-weight: bold; }
+        textarea { width: 100%; height: 100px; }
+        button { padding: 10px 20px; background: #003366; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Edit Response</h2>
+        <p><strong>Query:</strong> {{ query[1] }}</p>  <!-- Assuming query[1] is the query text -->
+        <form method="POST">
+            <div>
+                <label for="query">Query:</label>
+                <textarea id="query" name="query" required>{{ query[1] }}</textarea>
+            </div>
+            <div>
+                <label for="response">Response:</label>
+                <textarea id="response" name="response" required>{{ query[2] }}</textarea>
+            </div>
+            <div>
+                <button type="submit">Update</button>
+            </div>
+        </form>        
+    </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGIT Campus Assistant</title>
+    
+    <!-- Font Awesome (For Mic Icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Reset Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page Background */
+        body {
+            position: relative;
+            background: url("{{ url_for('static', filename='mgit.jpg') }}") no-repeat center center/cover;
+            background-attachment: fixed;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Overlay for Background Blur */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            backdrop-filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 60%;
+            max-width: 600px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            color: white;
+        }
+
+        /* Hover Effect for Container */
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        /* Heading Styling with Typing Animation */
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            border-right: 2px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typingEffect 2s steps(22) forwards, blinkCursor 0.8s infinite;
+        }
+
+        @keyframes typingEffect {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blinkCursor {
+            50% { border-color: transparent; }
+        }
+
+        /* Speech Button */
+        .mic-button {
+            padding: 15px 30px;
+            font-size: 22px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0px 8px 15px rgba(0, 114, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            outline: none;
+        }
+
+        /* Button Hover Effect */
+        .mic-button:hover {
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            transform: scale(1.1);
+        }
+
+        /* Mic Icon */
+        .mic-button i {
+            font-size: 24px;
+        }
+
+        /* Mic Listening Animation */
+        .mic-button.listening {
+            animation: pulse 1s infinite;
+            background: linear-gradient(45deg, #ff5722, #ff9800);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Response Text */
+        #response {
+            margin-top: 20px;
+            font-size: 20px;
+            color: black;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Show Response Effect */
+        .show-response {
+            opacity: 1 !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .mic-button {
+                font-size: 18px;
+                padding: 12px 25px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Welcome to MGIT Campus Assistant</h1>
+        <p id="greeting">{{ greeting }}</p>
+
+        <!-- Mic Button -->
+        <button class="mic-button" onclick="startListening()">
+            <i class="fa fa-microphone"></i> Start Listening
+        </button>
+
+        <!-- Response Display -->
+        <p id="response"></p>
+    </div>
+
+    <!-- JavaScript for Speech Recognition -->
+    <script>
+        function startListening() {
+            const micButton = document.querySelector(".mic-button");
+            const responseText = document.getElementById("response");
+
+            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+                alert("Your browser does not support Speech Recognition. Please use Chrome.");
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            // Add "listening" effect
+            micButton.classList.add("listening");
+
+            recognition.onresult = function(event) {
+                const command = event.results[0][0].transcript;
+                responseText.innerText = "You said: " + command;
+                responseText.classList.add("show-response");
+
+                fetch(`/voice_command/${command}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        responseText.innerText = data.response;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        responseText.innerText = "Sorry, there was an error processing your request.";
+                    });
+
+                // Remove "listening" effect after recognition
+                micButton.classList.remove("listening");
+            };
+
+            recognition.onspeechend = function() {
+                recognition.stop();
+                micButton.classList.remove("listening");
+            };
+
+            recognition.onerror = function(event) {
+                responseText.innerText = "Error: " + event.error;
+                micButton.classList.remove("listening");
+            };
+        }
+    </script>
+
+</body>
+</html>
