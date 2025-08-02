@@ -1,6 +1,7 @@
 💡 Smart Campus Assistant: A Voice Assistant
 Smart Campus Assistant is a web-based platform developed using Python Flask, HTML5, CSS3, and JavaScript. It’s designed to provide students with a seamless experience in navigating campus-related services—from viewing timetables and announcements to submitting academic queries and receiving admin support in real time.
 
+
 🎯 Vision
 To build a smart, responsive digital ecosystem that empowers students and simplifies campus interactions through intelligent automation and real-time connectivity.by using voice or Text.
 
